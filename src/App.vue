@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header @search="receivedInput" />
+    <HomePage v-if="inputText ==''"/>
     <MainContent :list="finalList"/>
   </div>
 </template>
@@ -8,12 +9,14 @@
 <script>
 import axios from 'axios'
 import Header from './components/Header.vue'
+import HomePage from './components/HomePage.vue'
 import MainContent from './components/MainContent.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
+    HomePage,
     MainContent
   },
   data(){
@@ -44,7 +47,7 @@ export default {
                     params: {
                         api_key:this.myAPIKey,
                         query: input,
-                        language: 'it-It'
+                        language: 'it-It',
                     }}
                    )
                 .then( response =>{
@@ -87,7 +90,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/style/commons.scss';
+@import '@/style/commons.scss'; 
+
+#app{
+  background-color: black;
+}
 
 
 </style>

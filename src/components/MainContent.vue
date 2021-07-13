@@ -2,9 +2,7 @@
     <div class="container">
         <div class="search-result">
             <Card  v-for="item in list" :key="item.id"
-            :details="item"
-            :language="item.original_language"
-            :vote="item.vote_average"/>
+            :details="item"/>
         </div>
     </div>
   
@@ -33,9 +31,10 @@ export default {
 <style lang="scss">
 
 .search-result{
+    min-height: 100vh;
+    padding: 120px 20px 50px 20px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
 
 }
 

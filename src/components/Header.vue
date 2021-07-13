@@ -54,8 +54,11 @@ export default {
 <style lang="scss">
 
 .header{
+    position:fixed;
+    z-index: 1;
+    width: 100%;
     padding: 20px 0;
-    background-color: black;
+    background-image: linear-gradient(#000, rgba(0, 0, 0, 0.158));
 
     .container{
         color:white;
