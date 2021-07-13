@@ -1,9 +1,17 @@
+@import "~@fontsource/martel-sans/index.css";
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+body{
+    font-family: 'Martel Sans';
+}
+
+
 .container{
     width: 1400px;
+    margin: 0 auto;
 }
