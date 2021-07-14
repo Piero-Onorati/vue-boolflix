@@ -27,7 +27,6 @@ export default {
     name:'Header',
     components:{
         Menu
-
     },
     data(){
         return{
@@ -35,17 +34,17 @@ export default {
             active: false
         }
     },
+
     methods:{
         searchAndReset(){
             this.$emit('search',this.searchMovie);    
             this.searchMovie =''        
         },
 
-        //toggle for dropdown menu of each message
+        //toggle for SEARCH button
         toggleSearch(){
             this.active = !this.active;
         },
-
     }
 
 }
@@ -70,7 +69,7 @@ export default {
             display: flex;
 
             img{
-            width: 110px
+                width: 110px
             }
         }
 
@@ -103,7 +102,6 @@ export default {
                     align-items: center;
                     transition: 2s;
                     font-size: 22px;
-
                 }
 
             }

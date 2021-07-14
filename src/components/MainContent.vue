@@ -1,8 +1,8 @@
 <template>
+
     <div class="container">
         <div class="search-result">
-            <Card  v-for="item in list" :key="item.id"
-            :details="item"/>
+            <Card v-for="(item,index) in list" :key="index" :details="item"  />
         </div>
     </div>
   
@@ -17,13 +17,10 @@ export default {
     name:'MainContent',
     components:{
         Card,
-   
     },
     props:{
         list: Array
     }
-    
-    
 
 }
 </script>
@@ -35,7 +32,6 @@ export default {
     padding: 120px 20px 50px 20px;
     display: flex;
     flex-flow: row wrap;
-
 }
 
 </style>

@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent :list="finalList"/>
+    <MainContent v-else :list="finalList"/>
   </div>
 </template>
 
@@ -34,9 +34,7 @@ export default {
     finalList(){  
         let arr1=this.movies
         let arr2= this.series
-
-        return [...arr1,...arr2]
-        
+        return [...arr1,...arr2] 
     }
   },
 

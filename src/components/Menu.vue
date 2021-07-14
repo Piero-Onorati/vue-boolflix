@@ -1,7 +1,9 @@
 <template>
   <nav>
       <ul class="navbar">
-          <li v-for="(link,index) in navBar" :key="index">{{link.linkName}}<a href="#"></a></li>
+        <li v-for="(link,index) in navBar" :key="index">
+            <a href="#" :class="{ active: link.selected }">{{link.linkName}}</a>
+        </li>
       </ul>
   </nav>
 </template>
@@ -14,22 +16,22 @@ export default {
             navBar:[
                 {
                     linkName:'Menu',
-                    active: true
+                    selected: true
                 },
                 {
                     linkName:'Serie TV',
-                    active: false
+                    selected: false
                 },
                 {
                     linkName:'Film',
-                    active: false},
+                    selected: false},
                 {
                     linkName:'Nuovi e Popolari',
-                    active: false
+                    selected: false
                 },
                 {
                     linkName:'La mia lista',
-                    active: false
+                    selected: false
                 }
             ]
         }
@@ -47,7 +49,18 @@ export default {
     li{
         list-style: none;
         margin: 0 10px;
+        font-size:15px;
 
+        a{
+            color: lightgray;
+            text-decoration: none;
+
+            &.active{
+                color:white;
+                font-weight: bold;
+            }
+        }
+        
     }
 }
 
