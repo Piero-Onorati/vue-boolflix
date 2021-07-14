@@ -21,69 +21,68 @@ export default {
   },
   data(){
     return{
-        movieURL:'https://api.themoviedb.org/3/search/movie',
-        serieURL:'https://api.themoviedb.org/3/search/tv',
-        myAPIKey:'d3cb662cdb093d83d0c5a79bf4d7718f',
-        inputText:'',
-        movies:[],
-        series:[]
+      movieURL:'https://api.themoviedb.org/3/search/movie',
+      movieDetail:'https://api.themoviedb.org/3/movie',
+      serieURL:'https://api.themoviedb.org/3/search/tv',
+      myAPIKey:'d3cb662cdb093d83d0c5a79bf4d7718f',
+      inputText:'',
+      movies:[],
+      series:[]
     }
   },
     
   computed:{
     finalList(){  
-        let arr1=this.movies
-        let arr2= this.series
-        return [...arr1,...arr2] 
+      let arr1=this.movies
+      let arr2= this.series
+      return [...arr1,...arr2] 
     }
   },
 
   methods:{
-        readTheAPIMovie(input){
-            axios
-                .get(this.movieURL,{ 
-                    params: {
-                        api_key:this.myAPIKey,
-                        query: input,
-                        language: 'it-It',
-                    }}
-                   )
-                .then( response =>{
-                    this.movies = response.data.results
-                    console.log(response);
-                })
-                .catch(error =>{
-                    console.log('Errore', error);
-                })
+    readTheAPIMovie(input){
+      axios
+        .get(this.movieURL,{ 
+          params: {
+            api_key:this.myAPIKey,
+            query: input,
+            language: 'it-It',
+          }})
+        .then( response =>{
+          this.movies = response.data.results
+        })
+        .catch(error =>{
+          console.log('Errore', error);
+      });
 
-        },
+    },
 
-        readTheAPISerie(input){
-            axios
-                .get(this.serieURL,{
-                    params: {
-                        api_key: this.myAPIKey,
-                        query: input,
-                        language: 'it-It'
-                    }
+    readTheAPISerie(input){
+      axios
+        .get(this.serieURL,{
+          params: {
+            api_key: this.myAPIKey,
+            query: input,
+            language: 'it-It'
+          }
 
-                })
-                .then( response =>{
-                        this.series=response.data.results
-                })
-                .catch(error =>{
-                        console.log('Errore', error);
-                })
+        })
+        .then( response =>{
+          this.series=response.data.results
+        })
+        .catch(error =>{
+          console.log('Errore', error);
+        })
 
-        },
+    },
 
-        receivedInput(arg){
-            this.inputText = arg;
-            this.readTheAPIMovie(arg);
-            this.readTheAPISerie(arg)
-        }
-
+    receivedInput(arg){
+      this.inputText = arg;
+      this.readTheAPIMovie(arg);
+      this.readTheAPISerie(arg)
     }
+
+  }
 }
 </script>
 

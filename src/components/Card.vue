@@ -89,6 +89,7 @@ export default {
     }
 
     .card-description{
+        padding:10px;
         width:100%;
         height: 100%;
         position: absolute;
@@ -99,8 +100,12 @@ export default {
         color: white; 
         display: none;
 
+        h6{
+            margin: 3px 0 5px 0;
+        }
+
         .flag{
-            width:20px;
+            width:16px;
             height:10px;
         }
         
