@@ -200,12 +200,18 @@ export default {
                 height: 300px;
                 margin: 0 5px;
 
+                &:hover{
+                    transform: scale(1.1);
+                }   
+
                 img{
                     width:100%;
                     height:100%;
                     border-radius:10px;
                 }
+
             }
+
         }
 
         .nav{
