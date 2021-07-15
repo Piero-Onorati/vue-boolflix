@@ -7,8 +7,8 @@
             <h3>Hai cercato: {{theSearch}}</h3>
             <div class="select">
                 <h5>Sort by genre</h5>
-                <select name="" id="" v-model="selected">
-                    <option value="" v-for="(option,index) in select" :key="index" >{{option}}</option>
+                <select v-model="selecting" @change="selectGenre">
+                    <option v-for="(option,index) in allGenres" :key="index" >{{option}}</option>
                 </select>
             </div>
         </div>
@@ -16,7 +16,8 @@
 
         <!-- start search-result -->
         <div class="search-result">
-            <Card v-for="item in list" :key="item.id" :details="item"/>
+            <Card v-for="item in series" :key="item.id" :details="item" />
+            <Card v-for="item in movies" :key="item.id" :details="item" />
         </div>
         <!-- end search-result -->
     </div>
@@ -32,13 +33,25 @@ export default {
         Card,
     },
     props:{
-        list: Array,
+        series: Array,
+        movies:Array,
         theSearch: String,
-        select:Array
+        allGenres:Array
     },
     data(){
         return{
-            selected:''
+            selecting: ''
+        }
+    },
+
+    created(){
+        this.selectGenre()
+
+    },
+    methods:{
+        selectGenre(){
+            console.log(this.selecting)
+            this.$emit('vModelGenre', this.selecting)
         }
     }
 
@@ -67,11 +80,8 @@ export default {
                 color: lightgray;
                 margin-right: 10px;
             }
-
         }
-
     }
-
     
     .search-result{
         padding: 20px 20px 50px 20px;
@@ -80,8 +90,6 @@ export default {
     }
 
 }
-
-
 
 
 </style>

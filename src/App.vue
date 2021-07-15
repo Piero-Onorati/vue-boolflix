@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent v-else :list="list" :theSearch="inputText" :select="allGenres"/>
+    <MainContent v-else :series="series" :movies="movies" :theSearch="inputText" :allGenres="allGenres" @vModelGenre="genreReceived"/>
   </div>
 </template>
 
@@ -29,16 +29,23 @@ export default {
       movies:[],
       series:[],
       allGenres:[],
+      selected:''
     }
   },
 
   computed:{
   
-    list(){
-      let arr1 = this.movies;
-      let arr2 = this.series;
-      return [...arr1,...arr2]
-    }
+
+    // filterSeries(){
+    //   return this.series.filter(element =>{
+    //     if (this.selected == '') {
+    //         return this.series
+    //     }
+    //     else{
+    //         return element.genre.name == this.selected
+    //     }
+    //   }); 
+    // },
 
   },
 
@@ -154,8 +161,12 @@ export default {
           this.allGenres.push(element.name)
         }
       })
-    }
+    },
 
+    genreReceived(arg1){
+      this.selected=arg1;
+      console.log(this.selected)
+    }
   }
 }
 </script>

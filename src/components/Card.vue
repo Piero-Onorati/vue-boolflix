@@ -18,7 +18,7 @@
             <button class="info-button" @click="show"><i class="fas fa-info-circle"></i></button>
             <div class="info" v-if="active" >
                 <!-- Cast -->
-                <div class="info-col" >
+                <div class="info-col">
                     <h3>Cast:</h3>
                     <p v-for="actor in details.cast" :key="actor.id">{{actor.name}}</p>
                 </div>
@@ -57,7 +57,7 @@
 export default {
     name:'Card',
     props:{
-        details: Object,
+        details: Object
     },
     data(){
         return{
