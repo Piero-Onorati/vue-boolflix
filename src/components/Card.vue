@@ -1,6 +1,6 @@
 <template>
 
-    <div class="card" v-if="details.poster_path !== null" >
+    <div class="card" v-if="details.poster_path !== null">
         
         <!-- IMG card -->
         <img  class="poster" :src="'https://image.tmdb.org/t/p/'+ size+details.poster_path">
@@ -13,6 +13,23 @@
 
             <!-- Original_Title of movie or TV-series -->
             <h6 >{{details.original_name || details.original_title }}</h6>
+
+            <!-- start section info: click the button to show CAST AND GENRES -->
+            <button class="info-button" @click="show"><i class="fas fa-info-circle"></i></button>
+            <div class="info" v-if="active" >
+                <!-- Cast -->
+                <div class="info-col" >
+                    <h3>Cast:</h3>
+                    <p v-for="actor in details.cast" :key="actor.id">{{actor.name}}</p>
+                </div>
+
+                <!-- genres -->
+                <div class="info-col">
+                    <h3>Genres:</h3>
+                    <p v-for="genre in details.genre" :key="genre.id">{{genre.name}}</p>
+                </div>
+            </div>
+             <!-- end section info: click the button to show CAST AND GENRES -->
 
             <!-- Original Language + flag-icon -->
             <h6 v-if="flagsCode.includes(details.original_language)">
@@ -27,23 +44,11 @@
 
             <!-- overview: plot description -->
             <p class="description">{{details.overview}}</p> 
-
-            <!-- Cast -->
-            <div class="cast" >
-                <h4>Cast:</h4>
-                <p v-for="actor in details.cast" :key="actor.id">{{actor.name}}</p>
-            </div>
-
-            <!-- genres -->
-            <div class="cast">
-                <h4>Genres:</h4>
-                <p v-for="genre in details.genre" :key="genre.id">{{genre.name}}</p>
-            </div>
+            
         </div> 
 
     </div>
-
-    
+  
   
 </template>
 
@@ -58,6 +63,7 @@ export default {
         return{
             size:'w342',
             flagsCode:["en", "it", "es", "fr", "ja", "de"],
+            active:false
         }
     },
 
@@ -69,6 +75,15 @@ export default {
             return percentageVote
         }
     },
+
+
+    methods:{
+        // function for show the info:cast + genres
+        show(){
+            this.active=!this.active
+        }
+    }
+
     
 }
 </script>
@@ -117,6 +132,29 @@ export default {
             margin: 3px 0 5px 0;
         }
 
+        .info-button{
+            font-size:20px;
+            color: whitesmoke;
+            background-color: transparent;
+            border:none;
+            outline:none
+        }
+
+        .info{
+            display: flex;
+
+            .info-col{
+                font-size: 9px;
+                color: lightgray;
+                padding-left:7px ;
+
+                h3{
+                    color: white;
+                }
+                
+            }
+        }
+
     
         .flag{
             width:16px;
@@ -152,12 +190,8 @@ export default {
             font-weight: 200;
         }
 
-        .cast{
-            font-size: 9px;
-            color: lightgray;
-        }
-
         .description{
+            margin-top: 10px;
             width: 100%;
             font-size: 10px;
         }
