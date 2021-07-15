@@ -18,18 +18,27 @@
             <h6 v-if="flagsCode.includes(details.original_language)">
                 Language: <img  class="flag" :src="require(`../assets/flags/${details.original_language}.jpg`)">
             </h6>
-            <h6 v-else>Language: {{details.original_language}}</h6>
+            <h6 v-else>{{details.original_language}}</h6>
 
             <!-- Rating Stars -->
             <div class="stars-outer">
                 <div class="stars-inner" :style="`width:${vote}%`"></div>
             </div>
 
-            <p>{{details.cast}}</p>
+            <!-- Cast -->
+            <div class="cast">
+                <h4>Cast:</h4>
+                <p v-for="actor in details.cast" :key="actor.id">{{actor.name}}</p>
+            </div>
+
+            <!-- genres -->
+            <div class="cast">
+                <h4>Genres:</h4>
+                <p v-for="genre in details.genre" :key="genre.id">{{genre.name}}</p>
+            </div>
 
             <!-- overview: plot description -->
             <p class="description">{{details.overview}}</p> 
-            
         </div> 
 
     </div>
@@ -94,6 +103,7 @@ export default {
         padding:10px;
         width:100%;
         height: 100%;
+        overflow-y:auto;
         position: absolute;
         top:50%;
         left: 50%;
@@ -106,18 +116,12 @@ export default {
             margin: 3px 0 5px 0;
         }
 
+    
         .flag{
             width:16px;
             height:10px;
         }
         
-        .description{
-            font-size: 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width:180px;
-            height: 100px;
-        }
 
         .stars-outer{
             display: inline-block;
@@ -129,25 +133,33 @@ export default {
                 top: 0;
                 left:0;
                 white-space: nowrap;
-                overflow: hidden;
-            
-                .stars-inner::before{
-                    font-family: "Font Awesome 5 Free";
-                    content:"\f005 \f005 \f005 \f005 \f005";
-                    font-weight: 900;
-                    color:yellow;
-                    }
-            
+                overflow: hidden;  
             } 
 
-            .stars-outer::before{
+            .stars-inner::before{
                 font-family: "Font Awesome 5 Free";
                 content:"\f005 \f005 \f005 \f005 \f005";
-                font-weight: 200;
+                font-weight: 900;
+                color:yellow;
             }
-    
-           
+ 
         } 
+
+        .stars-outer::before{
+            font-family: "Font Awesome 5 Free";
+            content:"\f005 \f005 \f005 \f005 \f005";
+            font-weight: 200;
+        }
+
+        .cast{
+            font-size: 9px;
+            color: lightgray;
+        }
+
+        .description{
+            width: 100%;
+            font-size: 10px;
+        }
 
     }
  

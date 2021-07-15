@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent v-else :list="finalList" :theSearch="inputText"/>
+    <MainContent v-else :arrayMovie="movies" :arraySerie="series" :theSearch="inputText"/>
   </div>
 </template>
 
@@ -28,20 +28,11 @@ export default {
       inputText:'',
       movies:[],
       series:[],
-      cast:[]
-    }
-  },
-    
-  computed:{
-    finalList(){  
-      let arr1=this.movies
-      let arr2= this.series
-      return [...arr1,...arr2] 
     }
   },
 
   methods:{
-    readTheAPIMovie(input){
+    readTheAPI(input){
       axios
         .get(this.movieURL,{ 
           params: {
@@ -50,10 +41,9 @@ export default {
             language: 'it-It',
           }})
         .then( response =>{
-          this.movies = response.data.results
+          this.movies = response.data.results;
 
             // add Cast to each element
-
             this.movies.forEach(element => {
               axios
               .get(`https://api.themoviedb.org/3/movie/${element.id}/credits`,{
@@ -66,6 +56,19 @@ export default {
               
             });
 
+            // add Genre to each element
+            this.movies.forEach(element => {
+              axios
+              .get(`https://api.themoviedb.org/3/movie/${element.id}`,{
+                params:{
+                  api_key:this.myAPIKey,
+                  append_to_response:'details'
+                }})
+              .then(response=>{
+                element.genre= response.data.genres
+              })
+              
+            });
             console.log(this.movies);
           
         })
@@ -73,9 +76,7 @@ export default {
           console.log('Errore', error);
       });
 
-    },
 
-    readTheAPISerie(input){
       axios
         .get(this.serieURL,{
           params: {
@@ -86,7 +87,35 @@ export default {
 
         })
         .then( response =>{
-          this.series=response.data.results
+          this.series=response.data.results;
+
+            // add Cast to each element
+            this.series.forEach(element => {
+              axios
+              .get(`https://api.themoviedb.org/3/tv/${element.id}/credits`,{
+                params:{
+                  api_key:this.myAPIKey,
+                }})
+              .then(response=>{
+                element.cast= response.data.cast.slice(0, 5)
+              })
+              
+            });
+
+            // add Genre to each element
+            this.series.forEach(element => {
+              axios
+              .get(`https://api.themoviedb.org/3/movie/${element.id}`,{
+                params:{
+                  api_key:this.myAPIKey,
+                  append_to_response:'details'
+                }})
+              .then(response=>{
+                element.genre= response.data.genres
+              })
+              
+            });
+            console.log(this.series);
         })
         .catch(error =>{
           console.log('Errore', error);
@@ -94,10 +123,10 @@ export default {
 
     },
 
+
     receivedInput(arg){
       this.inputText = arg;
-      this.readTheAPIMovie(arg);
-      this.readTheAPISerie(arg)
+      this.readTheAPI(arg);
     }
 
   }

@@ -3,7 +3,8 @@
     <div class="container">
         <h3>Hai cercato: {{theSearch}}</h3>
         <div class="search-result">
-            <Card v-for="(item,index) in list" :key="index" :details="item"  />
+            <Card v-for="movie in arrayMovie" :key="movie.id" :details="movie"  />
+            <Card v-for="serie in arraySerie" :key="serie.id" :details="serie"  />
         </div>
     </div>
   
@@ -20,7 +21,8 @@ export default {
         Card,
     },
     props:{
-        list: Array,
+        arrayMovie: Array,
+        arraySerie: Array,
         theSearch: String
     }
 
