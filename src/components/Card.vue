@@ -129,14 +129,12 @@ export default {
                 white-space: nowrap;
                 overflow: hidden;
             
-
                 .stars-inner::before{
-                font-family: "Font Awesome 5 Free";
-                content:"\f005 \f005 \f005 \f005 \f005";
-                font-weight: 900;
-                color:yellow;
-                }
-             
+                    font-family: "Font Awesome 5 Free";
+                    content:"\f005 \f005 \f005 \f005 \f005";
+                    font-weight: 900;
+                    color:yellow;
+                    }
             
             } 
 

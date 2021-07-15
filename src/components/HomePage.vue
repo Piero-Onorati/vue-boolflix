@@ -118,9 +118,9 @@ export default {
 <style lang="scss" scoped>
 
 .homepage{
-    height: 100vh;
-    overflow-x: auto;
+    height:100%;
     position: relative;
+    overflow-x: auto;
 
     .cover-image{
         width: 100%;
@@ -135,7 +135,7 @@ export default {
             text-shadow: 2px 2px black;
             position: absolute;
             left:30px;
-            top:36%;
+            top:40%;
 
             button{
                 font-size: 20px ;
@@ -156,6 +156,7 @@ export default {
 
             }
             .play{
+                font-weight: bold ;
                 background-color: #ffffff;
                 color: #000000;
             }
@@ -169,7 +170,7 @@ export default {
             width:100%;
             height: 650px;
             object-fit: cover;
-            object-position: center;
+            object-position: top;
         }
     }
 
@@ -178,7 +179,7 @@ export default {
         margin: 0 auto;
         min-height: 300px;
         position: absolute;
-        bottom:200px;
+        bottom:180px;
         left:0;
         position: relative;
         overflow: hidden;

@@ -1,6 +1,7 @@
 <template>
 
     <div class="container">
+        <h3>Hai cercato: {{theSearch}}</h3>
         <div class="search-result">
             <Card v-for="(item,index) in list" :key="index" :details="item"  />
         </div>
@@ -19,19 +20,32 @@ export default {
         Card,
     },
     props:{
-        list: Array
+        list: Array,
+        theSearch: String
     }
 
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-.search-result{
-    min-height: 100vh;
-    padding: 120px 20px 50px 20px;
-    display: flex;
-    flex-flow: row wrap;
+.container{
+
+    h3{
+        padding-top:100px;
+        padding-left: 30px;
+        color: lightgray;
+    }
+
+    .search-result{
+        padding: 20px 20px 50px 20px;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
 }
+
+
+
 
 </style>

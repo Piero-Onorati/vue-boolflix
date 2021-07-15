@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent v-else :list="finalList"/>
+    <MainContent v-else :list="finalList" :theSearch="inputText"/>
   </div>
 </template>
 
@@ -91,6 +91,8 @@ export default {
 
 #app{
   background-color: black;
+  height: 100vh;
+  overflow-x: auto;
 }
 
 
