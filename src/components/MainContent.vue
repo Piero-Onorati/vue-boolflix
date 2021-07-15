@@ -1,19 +1,30 @@
 <template>
 
     <div class="container">
-        <h3>Hai cercato: {{theSearch}}</h3>
-        <div class="search-result">
-            <Card v-for="movie in arrayMovie" :key="movie.id" :details="movie"  />
-            <Card v-for="serie in arraySerie" :key="serie.id" :details="serie"  />
+
+        <!-- start top-part -->
+        <div class="top-part">
+            <h3>Hai cercato: {{theSearch}}</h3>
+            <div class="select">
+                <h5>Sort by genre</h5>
+                <select name="" id="" v-model="selected">
+                    <option value="" v-for="(option,index) in select" :key="index" >{{option}}</option>
+                </select>
+            </div>
         </div>
+        <!-- end top-part -->
+
+        <!-- start search-result -->
+        <div class="search-result">
+            <Card v-for="item in list" :key="item.id" :details="item"/>
+        </div>
+        <!-- end search-result -->
     </div>
   
 </template>
 
 <script>
-
 import Card from '@/components/Card.vue'
-
 
 export default {
     name:'MainContent',
@@ -21,10 +32,15 @@ export default {
         Card,
     },
     props:{
-        arrayMovie: Array,
-        arraySerie: Array,
-        theSearch: String
-    }
+        list: Array,
+        theSearch: String,
+        select:Array
+    },
+    data(){
+        return{
+            selected:''
+        }
+    },  
 
 }
 </script>
@@ -33,12 +49,30 @@ export default {
 
 .container{
 
-    h3{
-        padding-top:100px;
-        padding-left: 30px;
-        color: lightgray;
+    .top-part{
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top:100px ;
+
+        h3{
+            color: lightgray;
+        }
+        .select{
+            display: flex;
+            align-items: center;
+
+            h5{
+                color: lightgray;
+                margin-right: 10px;
+            }
+
+        }
+
     }
 
+    
     .search-result{
         padding: 20px 20px 50px 20px;
         display: flex;

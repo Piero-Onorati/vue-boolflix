@@ -1,7 +1,7 @@
 <template>
 
-    <div class="card" v-if="details.poster_path !== null">
-
+    <div class="card" v-if="details.poster_path !== null" >
+        
         <!-- IMG card -->
         <img  class="poster" :src="'https://image.tmdb.org/t/p/'+ size+details.poster_path">
 
@@ -25,8 +25,11 @@
                 <div class="stars-inner" :style="`width:${vote}%`"></div>
             </div>
 
+            <!-- overview: plot description -->
+            <p class="description">{{details.overview}}</p> 
+
             <!-- Cast -->
-            <div class="cast">
+            <div class="cast" >
                 <h4>Cast:</h4>
                 <p v-for="actor in details.cast" :key="actor.id">{{actor.name}}</p>
             </div>
@@ -36,9 +39,6 @@
                 <h4>Genres:</h4>
                 <p v-for="genre in details.genre" :key="genre.id">{{genre.name}}</p>
             </div>
-
-            <!-- overview: plot description -->
-            <p class="description">{{details.overview}}</p> 
         </div> 
 
     </div>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+
 export default {
     name:'Card',
     props:{
@@ -67,7 +68,7 @@ export default {
             let percentageVote = Math.round(starVote * 100/ 5);
             return percentageVote
         }
-    }
+    },
     
 }
 </script>

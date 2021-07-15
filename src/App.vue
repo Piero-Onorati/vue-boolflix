@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent v-else :arrayMovie="movies" :arraySerie="series" :theSearch="inputText"/>
+    <MainContent v-else :list="list" :theSearch="inputText" :select="allGenres"/>
   </div>
 </template>
 
@@ -28,7 +28,18 @@ export default {
       inputText:'',
       movies:[],
       series:[],
+      allGenres:[],
     }
+  },
+
+  computed:{
+  
+    list(){
+      let arr1 = this.movies;
+      let arr2 = this.series;
+      return [...arr1,...arr2]
+    }
+
   },
 
   methods:{
@@ -65,8 +76,13 @@ export default {
                   append_to_response:'details'
                 }})
               .then(response=>{
-                element.genre= response.data.genres
+                element.genre= response.data.genres;
+
+                // Push the genres into the array allGenres
+                this.createListGenre(element.genre)
+
               })
+            
               
             });
             console.log(this.movies);
@@ -112,6 +128,9 @@ export default {
                 }})
               .then(response=>{
                 element.genre= response.data.genres
+
+                // Push the genres into the array allGenres
+                this.createListGenre(element.genre)
               })
               
             });
@@ -127,6 +146,14 @@ export default {
     receivedInput(arg){
       this.inputText = arg;
       this.readTheAPI(arg);
+    },
+
+    createListGenre(array){
+      array.filter(element=>{
+        if (!this.allGenres.includes(element.name)) {
+          this.allGenres.push(element.name)
+        }
+      })
     }
 
   }
