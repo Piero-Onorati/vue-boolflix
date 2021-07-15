@@ -25,6 +25,8 @@
                 <div class="stars-inner" :style="`width:${vote}%`"></div>
             </div>
 
+            <p>{{details.cast}}</p>
+
             <!-- overview: plot description -->
             <p class="description">{{details.overview}}</p> 
             

@@ -27,7 +27,8 @@ export default {
       myAPIKey:'d3cb662cdb093d83d0c5a79bf4d7718f',
       inputText:'',
       movies:[],
-      series:[]
+      series:[],
+      cast:[]
     }
   },
     
@@ -50,6 +51,23 @@ export default {
           }})
         .then( response =>{
           this.movies = response.data.results
+
+            // add Cast to each element
+
+            this.movies.forEach(element => {
+              axios
+              .get(`https://api.themoviedb.org/3/movie/${element.id}/credits`,{
+                params:{
+                  api_key:this.myAPIKey,
+                }})
+              .then(response=>{
+                element.cast= response.data.cast.slice(0, 5)
+              })
+              
+            });
+
+            console.log(this.movies);
+          
         })
         .catch(error =>{
           console.log('Errore', error);
