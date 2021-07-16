@@ -2,7 +2,7 @@
   <div id="app">
     <Header @search="receivedInput" />
     <HomePage v-if="inputText ==''"/>
-    <MainContent v-else :series="series" :movies="movies" :theSearch="inputText" :allGenres="allGenres" @vModelGenre="genreReceived"/>
+    <MainContent v-else :series="filterSeries" :movies="filterMovies" :theSearch="inputText" :allGenres="allGenres" @vModelGenre="genreReceived"/>
   </div>
 </template>
 
@@ -34,18 +34,26 @@ export default {
   },
 
   computed:{
-  
 
-    // filterSeries(){
-    //   return this.series.filter(element =>{
-    //     if (this.selected == '') {
-    //         return this.series
-    //     }
-    //     else{
-    //         return element.genre.name == this.selected
-    //     }
-    //   }); 
-    // },
+    filterSeries(){
+      return this.series.filter(element =>{
+        if (this.selected == '') {
+            return this.series
+        }
+          else {
+          return element.genre == this.selected
+      }}); 
+    },
+
+    filterMovies(){
+      return this.movies.filter(element =>{
+        if (this.selected == '') {
+          return this.movies
+        }else{
+          return element.genre == this.selected
+        }
+      }); 
+    },
 
   },
 
@@ -83,7 +91,9 @@ export default {
                   append_to_response:'details'
                 }})
               .then(response=>{
-                element.genre= response.data.genres;
+                element.genre= response.data.genres.map(function(obj){
+                  return obj.name
+                });
 
                 // Push the genres into the array allGenres
                 this.createListGenre(element.genre)
@@ -134,7 +144,9 @@ export default {
                   append_to_response:'details'
                 }})
               .then(response=>{
-                element.genre= response.data.genres
+                element.genre= response.data.genres.map(function(obj){
+                  return obj.name
+                });
 
                 // Push the genres into the array allGenres
                 this.createListGenre(element.genre)
@@ -157,8 +169,8 @@ export default {
 
     createListGenre(array){
       array.filter(element=>{
-        if (!this.allGenres.includes(element.name)) {
-          this.allGenres.push(element.name)
+        if (!this.allGenres.includes(element)) {
+          this.allGenres.push(element)
         }
       })
     },

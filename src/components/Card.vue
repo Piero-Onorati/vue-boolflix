@@ -15,7 +15,7 @@
             <h6 >{{details.original_name || details.original_title }}</h6>
 
             <!-- start section info: click the button to show CAST AND GENRES -->
-            <button class="info-button" @click="show"><i class="fas fa-info-circle"></i></button>
+            <button class="info-button" @click="show"><i class="fas fa-plus-circle"></i><span>More Info</span></button>
             <div class="info" v-if="active" >
                 <!-- Cast -->
                 <div class="info-col">
@@ -26,7 +26,7 @@
                 <!-- genres -->
                 <div class="info-col">
                     <h3>Genres:</h3>
-                    <p v-for="genre in details.genre" :key="genre.id">{{genre.name}}</p>
+                    <p v-for="genre in details.genre" :key="genre.id">{{genre}}</p>
                 </div>
             </div>
              <!-- end section info: click the button to show CAST AND GENRES -->
@@ -133,11 +133,21 @@ export default {
         }
 
         .info-button{
-            font-size:20px;
+            font-size:16px;
             color: whitesmoke;
-            background-color: transparent;
-            border:none;
-            outline:none
+            background-color: rgba(128, 128, 128, 0.527);
+            border:1px solid white;
+            border-radius: 5px;
+            outline:none;
+            display: flex;
+            align-items: center;
+            padding: 3px 5px;
+            margin-bottom:5px;
+
+            span{
+                font-size:10px ;
+                margin-left:5px;
+            }
         }
 
         .info{
