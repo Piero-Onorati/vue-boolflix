@@ -75,11 +75,19 @@ export default {
         .select{
             display: flex;
             align-items: center;
+            
+            select{
+                background-color: transparent;
+                border: 1px solid white;
+                color: white;
+                padding: 3px 5px;
+            }
 
             h5{
                 color: lightgray;
                 margin-right: 10px;
             }
+            
         }
     }
     

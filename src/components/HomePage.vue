@@ -18,50 +18,64 @@
         </div>
         <!-- end cover-image -->
 
-        <!-- start carousel container -->
-        <div class="carousel-container">
+        <section class="content">
+            <!-- start carousel container -->
+            <div class="carousel-container">
 
-            <!-- SECTION TITLE -->
-            <h2>Trending today</h2>
+                <!-- SECTION TITLE -->
+                <h2>Trending today</h2>
 
-            <!-- TRACK CONTAINING ALL THE CARDS -->
-            <div class="track"> 
-                <div class="card-container" v-for="(item,index) in trending" :key="index" @click="show(index)" >
-                    <img :src="'https://image.tmdb.org/t/p/w342'+item.poster_path" alt="" >
+                <!-- TRACK CONTAINING ALL THE CARDS -->
+                <div class="track"> 
+                    <div class="card-container" v-for="(item,index) in trending" :key="index" @click="show(index)" >
+                        <img :src="'https://image.tmdb.org/t/p/w342'+item.poster_path" alt="" >
+                    </div>
                 </div>
+
+                <!-- ARROW LEFT + ARROW RIGHT -->
+                <div class="nav">
+                    <button class="left-arrow"  @click="prevSlide"><i class="fas fa-chevron-left"></i></button>
+                    <button class="right-arrow" @click="nextSlide"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <!-- end carousel container -->
             </div>
 
-            <!-- ARROW LEFT + ARROW RIGHT -->
-            <div class="nav">
-                <button class="left-arrow"  @click="prevSlide"><i class="fas fa-chevron-left"></i></button>
-                <button class="right-arrow" @click="nextSlide"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <!-- end carousel container -->
-        </div>
+            <PopularTV :arrayPopularTv="popularTV"/>
+
+        </section>
+
 
     </div>
     
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import PopularTV from '@/components/PopularTV.vue';
+
 
 
 export default {
     name:'HomePage',
     components:{
+        PopularTV,
+        
     },
     data(){
         return{
             trendingURL:'https://api.themoviedb.org/3/trending/all/day',
+            PopularTvURL:'https://api.themoviedb.org/3/tv/popular',
             myAPIKey:'d3cb662cdb093d83d0c5a79bf4d7718f',
             trending:[],
-            counter:0
+            popularTV:[],
+            counter:0,
         }
     },
 
     created(){
         this.getTrending();
+        
+        this.getPopularTV()
     },
 
     methods:{
@@ -74,10 +88,23 @@ export default {
                         api_key:this.myAPIKey,
                     }
                 })
-                .then(response=>
-                    
+                .then(response=>{   
                    this.trending=response.data.results
-                )
+                })
+
+        },
+
+        getPopularTV(){
+            axios
+                .get(this.PopularTvURL, {
+                    params:{
+                        api_key:this.myAPIKey,
+                    }
+                })
+                .then(response=>{
+                   this.popularTV=response.data.results
+                })
+
 
         },
 
@@ -174,67 +201,50 @@ export default {
         }
     }
 
-    .carousel-container {
-        width: 100%;
-        margin: 0 auto;
-        min-height: 300px;
-        position: absolute;
-        bottom:180px;
-        left:0;
-        position: relative;
-        overflow: hidden;
+    .content{
+        margin-top:-160px;
 
-        h2{
-            font-size: 30px;
-            color:white;
-            text-shadow: 2px 2px rgb(48, 48, 48);
-            margin:20px 0 5px 15px;
-        }
+        .carousel-container {
+            width: 100%;
+            margin: 0 auto;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
 
-        .track {
-            display: inline-flex;
-            transition: transform 0.5s;
-    
-            .card-container{
-                width: calc(100% / 7 - 10px);
-                flex-shrink: 0;
-                height: 300px;
-                margin: 0 5px;
+            h2{
+                font-size: 30px;
+                color:white;
+                text-shadow: 2px 2px rgb(48, 48, 48);
+                margin:20px 0 10px 25px;
+            }
 
-                &:hover{
-                    transform: scale(1.1);
-                }   
+            .track {
+                display: inline-flex;
+                transition: transform 0.5s;
+        
+                .card-container{
+                    width: calc(100% / 7 - 10px);
+                    flex-shrink: 0;
+                    height: 300px;
+                    margin: 0 5px;
 
-                img{
-                    width:100%;
-                    height:100%;
-                    border-radius:10px;
+                    &:hover{
+                        transform: scale(1.1);
+                    }   
+
+                    img{
+                        width:100%;
+                        height:100%;
+                        border-radius:10px;
+                    }
+
                 }
 
             }
 
-        }
+            .nav{
 
-        .nav{
-
-            .left-arrow{
-            background-color: white;
-            width:50px;
-            height: 50px;
-            border-radius: 50% ;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left:0;
-            opacity:0.3;
-
-                &:hover{
-                    opacity:1
-                }
-
-            }
-
-            .right-arrow{
+                .left-arrow{
                 background-color: white;
                 width:50px;
                 height: 50px;
@@ -242,18 +252,40 @@ export default {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                right:1%;
+                left:0;
                 opacity:0.3;
 
-                &:hover{
-                    opacity:1
+                    &:hover{
+                        opacity:1
+                    }
+
                 }
+
+                .right-arrow{
+                    background-color: white;
+                    width:50px;
+                    height: 50px;
+                    border-radius: 50% ;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    right:1%;
+                    opacity:0.3;
+
+                    &:hover{
+                        opacity:1
+                    }
+                }
+
             }
 
+        
         }
 
-    
+        
+
     }
+
 
 }
 
