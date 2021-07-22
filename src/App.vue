@@ -34,28 +34,46 @@ export default {
   },
 
   computed:{
-
     filterSeries(){
       return this.series.filter(element =>{
-        if (this.selected == '') {
-            return this.series
+        const set1 = new Set(element.genre);
+        if (set1.has(this.selected)) {
+          return element
+        }else if(this.selected==''){
+          return this.series
         }
-          else {
-          return element.genre == this.selected
-      }}); 
+
+       /* if the element.genre has only one value*/
+      //   if (this.selected == '') {
+      //       return this.series
+      //   }
+      //     else {
+      //     return element.genre == this.selected
+      // }}
+      
+      }); 
     },
 
     filterMovies(){
       return this.movies.filter(element =>{
-        if (this.selected == '') {
-          return this.movies
-        }else{
-          return element.genre == this.selected
+        const set2 = new Set(element.genre);
+        if (set2.has(this.selected)) {
+          return element
+        }else if(this.selected==''){
+          return this.series
         }
+     
+
+        /* if the element.genre has only one value*/
+        // if (this.selected == '') {
+        //   return this.movies
+        // }else{
+        //   return element.genre == this.selected
+        // }
       }); 
     },
-
   },
+
 
   methods:{
     readTheAPI(input){
