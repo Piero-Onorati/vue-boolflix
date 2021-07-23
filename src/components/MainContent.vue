@@ -50,8 +50,8 @@ export default {
     },
     methods:{
         selectGenre(){
-            console.log(this.selecting)
-            this.$emit('vModelGenre', this.selecting)
+            // console.log(this.selecting)
+            this.$emit('vModelGenre', this.selecting);
         }
     }
 
@@ -81,6 +81,11 @@ export default {
                 border: 1px solid white;
                 color: white;
                 padding: 3px 5px;
+
+                option{
+                    color:black;
+                    background-color: lightgray;
+                }
             }
 
             h5{

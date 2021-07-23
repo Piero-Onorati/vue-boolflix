@@ -13,7 +13,7 @@
                     <i class="fas fa-search "></i>
                 </button>
             </div>
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-bell bell"></i>
             <img src="../assets/img/user-profile.png" alt="">
         </div>
     </div>
@@ -38,7 +38,7 @@ export default {
     methods:{
         searchAndReset(){
             this.$emit('search',this.searchMovie);    
-            this.searchMovie =''        
+            this.searchMovie == '';
         },
 
         //toggle for SEARCH button
@@ -102,13 +102,19 @@ export default {
                     align-items: center;
                     transition: 2s;
                     font-size: 22px;
+                    cursor: pointer;
                 }
 
             }
 
+            .bell{
+                cursor: pointer;            
+            }
+
             img{
                 margin-left: 30px ;
-                width:40px
+                width:40px;
+                cursor: pointer;
             }
 
         }

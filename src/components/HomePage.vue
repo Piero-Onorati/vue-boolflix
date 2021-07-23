@@ -44,7 +44,6 @@
 
         </section>
 
-
     </div>
     
 </template>
@@ -53,13 +52,10 @@
 import axios from 'axios';
 import PopularTV from '@/components/PopularTV.vue';
 
-
-
 export default {
     name:'HomePage',
     components:{
-        PopularTV,
-        
+        PopularTV,  
     },
     data(){
         return{
@@ -73,8 +69,7 @@ export default {
     },
 
     created(){
-        this.getTrending();
-        
+        this.getTrending(); 
         this.getPopularTV()
     },
 
@@ -281,8 +276,6 @@ export default {
 
         
         }
-
-        
 
     }
 

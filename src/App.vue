@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header @search="receivedInput" />
+    <Header @search="receivedInput"/>
     <HomePage v-if="inputText ==''"/>
     <MainContent v-else :series="filterSeries" :movies="filterMovies" :theSearch="inputText" :allGenres="allGenres" @vModelGenre="genreReceived"/>
   </div>
@@ -113,6 +113,8 @@ export default {
                   return obj.name
                 });
 
+                this.selected ='';
+
                 // Push the genres into the array allGenres
                 this.createListGenre(element.genre)
 
@@ -195,7 +197,7 @@ export default {
 
     genreReceived(arg1){
       this.selected=arg1;
-      console.log(this.selected)
+      // console.log(this.selected)
     }
   }
 }
