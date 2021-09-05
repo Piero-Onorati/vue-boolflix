@@ -40,7 +40,9 @@
                 <!-- end carousel container -->
             </div>
 
-            <PopularTV :arrayPopularTv="popularTV"/>
+            <PopularMovie :popularMovie="popularMovie"/>
+
+            <PopularTV :popularTV="popularTV"/>
 
         </section>
 
@@ -51,26 +53,30 @@
 <script>
 import axios from 'axios';
 import PopularTV from '@/components/PopularTV.vue';
+import PopularMovie from '@/components/PopularMovie.vue';
 
 export default {
     name:'HomePage',
     components:{
-        PopularTV,  
+        PopularTV,
+        PopularMovie
     },
     data(){
         return{
             trendingURL:'https://api.themoviedb.org/3/trending/all/day',
-            PopularTvURL:'https://api.themoviedb.org/3/tv/popular',
+            popularTvURL:'https://api.themoviedb.org/3/tv/popular',
+            popularMovieURL:'https://api.themoviedb.org/3/movie/popular',
             myAPIKey:'d3cb662cdb093d83d0c5a79bf4d7718f',
             trending:[],
             popularTV:[],
+            popularMovie:[],
             counter:0,
         }
     },
 
     created(){
         this.getTrending(); 
-        this.getPopularTV()
+        this.getPopular()
     },
 
     methods:{
@@ -89,17 +95,24 @@ export default {
 
         },
 
-        getPopularTV(){
-            axios
-                .get(this.PopularTvURL, {
-                    params:{
-                        api_key:this.myAPIKey,
-                    }
-                })
-                .then(response=>{
-                   this.popularTV=response.data.results
-                })
+        // AXIOS Call for generating the popularTV and popularMovie array
+        getPopular(){
 
+            const request ={
+                params:{
+                    api_key:this.myAPIKey
+                }
+            };
+
+            axios
+                .all([
+                    axios.get(this.popularTvURL, request),
+                    axios.get(this.popularMovieURL, request)
+                ])
+                .then(axios.spread((responseTv, responseMovie) =>{
+                    this.popularTV=responseTv.data.results;
+                    this.popularMovie=responseMovie.data.results;
+                }))
 
         },
 
@@ -169,6 +182,7 @@ export default {
                 margin-right: 20px;
 
                 &:hover{
+                    cursor: pointer;
                     filter: brightness(0.8);
                 }
 
@@ -198,6 +212,7 @@ export default {
 
     .content{
         margin-top:-160px;
+        padding-bottom: 60px;
 
         .carousel-container {
             width: 100%;
@@ -205,6 +220,7 @@ export default {
             min-height: 300px;
             position: relative;
             overflow: hidden;
+            padding-bottom:50px;
 
             h2{
                 font-size: 30px;
@@ -224,6 +240,7 @@ export default {
                     margin: 0 5px;
 
                     &:hover{
+                        cursor: pointer;
                         transform: scale(1.1);
                     }   
 
@@ -240,17 +257,18 @@ export default {
             .nav{
 
                 .left-arrow{
-                background-color: white;
-                width:50px;
-                height: 50px;
-                border-radius: 50% ;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                left:0;
-                opacity:0.3;
+                    background-color: white;
+                    width:50px;
+                    height: 50px;
+                    border-radius: 50% ;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left:0;
+                    opacity:0.5;
 
                     &:hover{
+                        cursor: pointer;
                         opacity:1
                     }
 
@@ -265,9 +283,10 @@ export default {
                     top: 50%;
                     transform: translateY(-50%);
                     right:1%;
-                    opacity:0.3;
+                    opacity:0.5;
 
                     &:hover{
+                        cursor: pointer;
                         opacity:1
                     }
                 }
